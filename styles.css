@@ -1,0 +1,17 @@
+* {
+	box-sizing: border-box;
+}
+
+.background_image {
+	background: url(recipe_background.jpeg);
+	background-repeat: no-repeat;
+  background-size: cover;
+}
+
+.vertical-center {
+  min-height: 60%;
+  min-height: 85vh;
+
+  display: flex;
+  align-items: center;
+}
