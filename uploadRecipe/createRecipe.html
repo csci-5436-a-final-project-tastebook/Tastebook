@@ -31,51 +31,54 @@
                 style="margin: 120px; background-color: #bace8c; padding: 20px; border-radius: 10px">
                 <h1 align="center">Upload A Recipe</h1>
 
-                <form>
+                <form id="form" role="form" action="uploadRecipe.php" method="POST">
                     <div class="form-row">
+
                         <div class="form-group col-md-6">
                             <label for="inputTitle4">Title</label>
-                            <input type="text" class="form-control" id="inputTitle4" placeholder="Title">
+                            <input type="text" class="form-control" id="title" name="title" placeholder="Title" required
+                                spellcheck="false">
                         </div>
+
                         <div class="form-group col-md-6">
                             <label for="inputCreator4">Creator</label>
-                            <input type="text" class="form-control" id="inputCreator4" placeholder="Creator">
+                            <input type="text" class="form-control" id="creator" name="creator" placeholder="Creator"
+                                required spellcheck="false">
                         </div>
                     </div>
+
                     <div class="form-group">
                         <label for="inputDescription">Description</label>
-                        <input type="text" class="form-control" id="inputDescription" placeholder="Description">
+                        <input type="text" class="form-control" id="description" name="description"
+                            placeholder="Description" required spellcheck="true">
                     </div>
+
                     <div class="form-row">
                         <div class="form-group col-md-6">
                             <label for="inputIngredients">Ingredients</label>
-                            <input type="text" class="form-control" id="inputIngredients">
+                            <textarea type="text" form="form" class="form-control" id="ingredients" name="ingredients"
+                                required spellcheck="true"></textarea>
                         </div>
+
                         <div class="form-group col-md-4">
                             <label for="inputDirections">Directions</label>
-                            <input type="text" id="inputDirections" class="form-control">
-
+                            <textarea type="textarea" form="form" class="form-control" id="directions" name="directions"
+                                required spellcheck="true"></textarea>
                         </div>
+
                         <div class="form-group col-md-2">
                             <label for="inputExtras">Extras</label>
-                            <input type="text" class="form-control" id="inputExtras">
+                            <textarea type="text" form="form" class="form-control" id="extras" name="extras"></textarea>
                         </div>
+
                     </div>
-                    <button type="submit" class="btn btn-primary">Sign in</button>
+                    <button class="btn btn-primary" onclick="location.href = 'tasteBook-Main.html';">Back</button>
+
+                    <button type="submit" class="btn btn-primary" name="upload">Upload</button>
                 </form>
             </div>
 
         </div>
-
-        <!-- Allows user to seach by pressing "Enter" on keyboard -->
-        <script>
-            var Searchbar = document.getElementById("Searchbar");
-            Searchbar.addEventListener("keyup", function (event) {
-                if (event.keyCode === 13) {
-                    document.getElementById("SearchIcon").click();
-                }
-            });
-        </script>
 
     </div>
 
