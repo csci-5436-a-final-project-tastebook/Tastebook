@@ -9,10 +9,51 @@
     $password_1 = $_POST['password_1'];
     $password_2 = $_POST['password_2'];
 
-    if ($password_1 == $password_2) {
-      $password = $password_1;
-      mysqli_query($db, "INSERT INTO useraccount(userName, userEmail, userPassword) VALUES ('$username', '$email', '$password')");
-      header("Location: {$_SERVER["HTTP_REFERER"]}");
+    // Checks that the fields are not empty
+    if (empty($email) || empty($username) || empty($password_1) || empty($password_2)) {
+      header("Location: tasteBook-Main.php?error=emptyfields&mail=".$email."&name=".$username);
+      exit();
+    }
+
+    // Checks if both email and username is valid
+    else if (!filter_var($email, FILTER_VALIDATE_EMAIL) && !preg_match(("/^[a-zA-Z0-9]*$/"), $username)) {
+      header("Location: tasteBook-Main.php?error=invalidmailname");
+      exit();
+    }
+
+    // Checks for a valid email
+    else if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+      header("Location: tasteBook-Main.php?error=invalidmail&name=".$username);
+      exit();
+    }
+
+    // Checks for a valid username
+    else if (!preg_match(("/^[a-zA-Z0-9]*$/"), $username)) {
+      header("Location: tasteBook-Main.php?error=invalidname&mamil=".$email);
+      exit();
+    }
+
+    // Checks if both passwords are the same
+    else if ($password_1 != $password_2) {
+      header("Location: tasteBook-Main.php?error=passwordmatch&mail=".$email."&name=".$username);
+      exit();
+    }
+
+    else {
+      $sql = "SELECT userName FROM useraccount WHERE userName = ?";
+      $statement = mysqli_stmt_init($db);
+
+      if (!mysqli_stmt_prepare($statement, $sql)) {
+        header("Location: tasteBook-Main.php?error=sqlerror");
+        exit();
+      }
+
+      else {
+        $password = $password_1;
+        mysqli_query($db, "INSERT INTO useraccount(userName, userEmail, userPassword) VALUES ('$username', '$email', '$password')");
+        header("Location: tasteBook-Main.php?register=success");
+        exit();
+      }
     }
   }
 ?>
