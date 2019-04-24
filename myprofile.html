@@ -1,0 +1,53 @@
+<!--  for php need to remember session id and username at minimum -->
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+	
+	
+	
+	<title>Your Profile</title>
+  </head>
+  <body class="background_image" style="height: 100%">
+  <body background="recipe_background.jpeg"></body>
+  <!-- Center container vertically -->
+    <div class="vertical-center">
+      <div class="container">
+	  <!-- Center contains of container and colors border -->
+      <div class="flex-container" style="margin: 5px; background-color:  #a1b1cc; opacity: .90; padding: 10px; border-radius: 10px">
+        <h1 align="center">Your Profile</h1>
+		<body>
+			<div class="d1" style="margin-top: -70px; float: right">
+				<!--should redirect to home page while remaining signed in -->
+				<a href="tasteBook-Main.php">Home</a> 
+				<!--should redirect to home page while also signing out of profile -->
+				<a href="tasteBook-Main.php"> Log Out</a>
+			</div>
+		</body>
+	  </div>
+	  </div>
+	</div>
+	
+	<!-- Div for "favorited" recipes when feature is added -->
+	<div class="left">
+		<div class="flex-container">
+			<div class="container" style="margin: 10px; width: 500px; height: 650px; background-color: #a1b1cc; opacity: .90; padding: 1px; border-radius:10px">
+			
+			<!-- should welcome user while displaying their username which is retrieved from database -->
+			<h1 align="left"> Welcome ($username) (placeholder) </h1>
+				<body>
+					<p>Your Favorite Recipes:</p>
+					<!-- if/when feature is added container here which will contain any recipes favorited by user -->
+				</body>
+			</div>
+		</div>
+	</div>
+	
+</body>	
+</html>
