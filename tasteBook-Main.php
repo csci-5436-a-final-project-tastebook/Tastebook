@@ -34,12 +34,23 @@
 
         <!-- Search bar -->
         <div class="input-group" style="margin-bottom: 25px">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="Searchbar">
 
-            <!-- Search icon -->
-            <span class="input-group-append" type="button" onclick="location.href = 'www.NEXT PAGE GOES HERE.com';" id="SearchIcon">
-                <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
-            </span>
+            <form action="" method="get" class="input-group">
+              <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="Searchbar" id="Searchbar">
+
+              <!-- Search icon -->
+              <span class="input-group-append" type="button" onclick="location.href = 'displayRecipe.php';" id="SearchIcon">
+                  <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
+              </span>
+            </form>
+
+            <?php
+              if (isset($_GET['Searchbar'])) {
+                $_SESSION['term'] = $_GET['Searchbar'];
+                header("Location: displayRecipe.php?Search=" .$_SESSION['term']);
+              }
+             ?>
+
         </div>
 
         <!-- Checks if the user is currently logged in -->
@@ -47,10 +58,10 @@
           if (isset($_SESSION['userID'])) {
             // Log out Button and Submit Recipe Button
             echo '<div style="display: inline-block">
-                    <form action="logout.inc.php" method="post">
-                      <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#popUpWindowLogout" style="margin-right: 10px">Logout</button>
+                    <form action="logout.php" method="post">
+                      <button class="btn btn-primary" type="button" id="Submit" style="margin-right: 10px">Submit Recipe</button>
                       <button class="btn btn-primary" type="button" style="margin-right: 10px" id="Profile">Profile</button>
-                      <button class="btn btn-primary" type="button" id="Submit">Submit Recipe</button>
+                      <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#popUpWindowLogout">Logout</button>
                     </form>
                   </div>';
           }
@@ -206,8 +217,9 @@
       </div>
     </div>
 
-    <!-- Allows user to seach by pressing "Enter" on keyboard -->
     <script>
+
+      // Allows user to seach by pressing "Enter" on keyboard
       var Searchbar = document.getElementById("Searchbar");
       Searchbar.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
@@ -215,11 +227,13 @@
         }
       });
 
+      // Clicking the submit button takes user to the createRecipe page
       var Submit = document.getElementById("Submit");
       Submit.addEventListener("click", function(event) {
-        document.location.href = 'createRecipe.html';
+        document.location.href = 'createRecipe.php';
       });
 
+      // Clicking the profile button takes user to the myprofile page
       var Profile = document.getElementById("Profile");
       Profile.addEventListener("click", function(event) {
         document.location.href = 'myprofile.php';

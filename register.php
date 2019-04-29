@@ -50,7 +50,13 @@
 
       else {
         $password = $password_1;
+        // Insert account into database
         mysqli_query($db, "INSERT INTO useraccount(userName, userEmail, userPassword) VALUES ('$username', '$email', '$password')");
+
+        // Create profile for created account
+        mysqli_query($db, "INSERT INTO profile(userName, numLiked, numSubmitted) VALUES ('$username', 0, 0)");
+
+        // Redirect to main page
         header("Location: tasteBook-Main.php?register=success");
         exit();
       }

@@ -27,17 +27,13 @@
 	       <!-- Center contains of container and colors border -->
       <div class="flex-container" style="margin: 5px; background-color:  #a1b1cc; opacity: .90; padding: 10px; border-radius: 10px">
         <h1 align="center">Your Profile</h1>
-		      <body>
-			         <div class="d1" style="margin-top: -70px; float: right; display: inline">
 
-                 <button class="btn btn-primary btn-block" onclick="location.href = 'tasteBook-Main.php';">Home</button>
-
-                   <form role="form" action="logout.php" method="post" style="display: inline">
-                    <button class="btn btn-secondary btn-block" name="logout">Log out</button>
-                  </form>
-
-			         </div>
-	        </body>
+          <div style="display: inline-block">
+            <form action="logout.php" method="post">
+              <button class="btn btn-primary" type="button" onclick="location.href = 'tasteBook-Main.php';">Home</button>
+              <button class="btn btn-secondary" name="logout">Log out</button>
+            </form>
+          </div>
 	    </div>
 
     <div class="flex-container" style="margin: 5px; margin-top: 20px; height: 500px;background-color: #a1b1cc; opacity: .90; padding: 10px; border-radius:10px">
@@ -46,12 +42,13 @@
       <h1 align="left">Welcome, <?php echo $_SESSION['userID'];?>!</h1>
 
         <body>
-          <p>Your Favorite Recipes:</p>
+          <p align="left">Your Favorite Recipes:</p>
           <!-- if/when feature is added container here which will contain any recipes favorited by user -->
         </body>
     </div>
 	  </div>
 	</div>
+
 
 	<!-- Div for "favorited" recipes when feature is added -->
 
