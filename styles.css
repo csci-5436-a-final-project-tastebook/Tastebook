@@ -2,12 +2,6 @@
 	box-sizing: border-box;
 }
 
-.background_image {
-	background: url(recipe_background.jpeg);
-	background-repeat: no-repeat;
-  background-size: cover;
-}
-
 .background_image_2 {
 	background: url(food_background.jpg);
 	background-repeat: no-repeat;
@@ -19,6 +13,11 @@
   min-height: 60%;
   min-height: 85vh;
 
+  display: flex;
+  align-items: center;
+}
+
+.vertical-center_2 {
   display: flex;
   align-items: center;
 }
