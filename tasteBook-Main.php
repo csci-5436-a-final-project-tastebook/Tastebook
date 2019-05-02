@@ -1,6 +1,7 @@
 <?php
   // Starts session
   session_start();
+  unset ($_SESSION["term"]);
 ?>
 
 <!DOCTYPE html>
@@ -30,16 +31,26 @@
 
       <!-- Center contains of container and colors border -->
       <div class="flex-container" style="margin: 120px; background-color:  #a1b1cc; opacity: .90; padding: 20px; border-radius: 10px">
-        <h1 align="center">TasteBook</h1>
+        <img src="tastebook_logo.png" align="center" style="margin-bottom: 10px; height: 100%; width: 100%; object-fit: contain" />
 
         <!-- Search bar -->
         <div class="input-group" style="margin-bottom: 25px">
-            <input class="form-control" type="text" placeholder="Search" aria-label="Search" id="Searchbar">
 
-            <!-- Search icon -->
-            <span class="input-group-append" type="button" onclick="location.href = 'www.NEXT PAGE GOES HERE.com';" id="SearchIcon">
-                <div class="input-group-text bg-transparent"><i class="fa fa-search"></i></div>
-            </span>
+            <form action="" method="get" class="input-group">
+              <input class="form-control" type="text" placeholder="Search" aria-label="Search" name="Searchbar" id="Searchbar" required>
+            </form>
+
+            <?php
+              if (isset($_GET['Searchbar'])) {
+                $_SESSION['term'] = $_GET['Searchbar'];
+
+                if(!empty($_SESSION['term'])) {
+                  header("Location: displayRecipe.php?Search=" .$_SESSION['term']);
+                }
+
+              }
+             ?>
+
         </div>
 
         <!-- Checks if the user is currently logged in -->
@@ -47,10 +58,10 @@
           if (isset($_SESSION['userID'])) {
             // Log out Button and Submit Recipe Button
             echo '<div style="display: inline-block">
-                    <form action="logout.inc.php" method="post">
-                      <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#popUpWindowLogout" style="margin-right: 10px">Logout</button>
-                      <button class="btn btn-primary" type="button" style="margin-right: 10px" id="Profile">Profile</button>
-                      <button class="btn btn-primary" type="button" id="Submit">Submit Recipe</button>
+                    <form action="logout.php" method="post">
+                      <button class="btn btn-primary" type="button" id="Submit" style="margin-right: 10px">Submit Recipe</button>
+                      <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#popUpWindowProfile" style="margin-right: 10px" id="Profile">Profile</button>
+                      <button class="btn btn-secondary" type="button" data-toggle="modal" data-target="#popUpWindowLogout">Logout</button>
                     </form>
                   </div>';
           }
@@ -206,8 +217,41 @@
       </div>
     </div>
 
-    <!-- Allows user to seach by pressing "Enter" on keyboard -->
+    <!-- Profile Modal -->
+    <div class="modal fade" id="popUpWindowProfile">
+      <div class="modal-dialog">
+        <div class="modal-content">
+
+            <!-- Header -->
+            <div class="modal-header">
+              <h1><?php echo $_SESSION['userID'];?>'s Profile</h1>
+              <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+
+            <!-- Body -->
+            <div class="modal-body">
+
+              <?php
+              // Connect to database
+              $db = mysqli_connect('localhost', 'root', 'Landon10000', "tastebook");
+
+              // Fetches all attributes from user profile
+              $query = "SELECT * FROM profile WHERE userName = '" . $_SESSION['userID'] . "'";
+              $result = mysqli_query($db, $query);
+              $row = mysqli_fetch_array($result);
+              ?>
+
+              <p align="left">Number of recipes liked: <?php echo ''.$row['numLiked'].'';?></p>
+              <p align="left">Number of recipes submitted: <?php echo ''.$row['numSubmitted'].'';?></p>
+
+            </div>
+        </div>
+      </div>
+    </div>
+
     <script>
+
+      // Allows user to seach by pressing "Enter" on keyboard
       var Searchbar = document.getElementById("Searchbar");
       Searchbar.addEventListener("keyup", function(event) {
         if (event.keyCode === 13) {
@@ -215,15 +259,12 @@
         }
       });
 
+      // Clicking the submit button takes user to the createRecipe page
       var Submit = document.getElementById("Submit");
       Submit.addEventListener("click", function(event) {
-        document.location.href = 'createRecipe.html';
+        document.location.href = 'createRecipe.php';
       });
 
-      var Profile = document.getElementById("Profile");
-      Profile.addEventListener("click", function(event) {
-        document.location.href = 'myprofile.php';
-      });
 
     </script>
 
